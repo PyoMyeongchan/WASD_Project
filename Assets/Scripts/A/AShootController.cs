@@ -38,7 +38,7 @@ public class AShootController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Monster")
         {
             Destroy(gameObject);
         }

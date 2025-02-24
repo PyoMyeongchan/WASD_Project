@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - Table
   - Dead
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - Player
   - Weapon
-  - 
+  - Monster
   - 
   - 
   - 

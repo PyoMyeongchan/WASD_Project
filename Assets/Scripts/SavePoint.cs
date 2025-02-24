@@ -17,10 +17,12 @@ public class SavePoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        controller.UpdateSavePoint(transform.position);
-        spriteRenderer.sprite = after;
-        Debug.Log("반응");
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            controller.UpdateSavePoint(transform.position);
+            spriteRenderer.sprite = after;
+            Debug.Log("반응");
+        }   
     }
 
   
