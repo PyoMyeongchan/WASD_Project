@@ -15,6 +15,7 @@ public class APlayerController : MonoBehaviour
     bool isGround = false;
     float axisH = 0.0f;
     Vector2 savePoint;
+    public static string state = "Playing";
 
 
     string current = "";
@@ -31,13 +32,16 @@ public class APlayerController : MonoBehaviour
         isGround = true;
         jumpcount = 1;
         savePoint = transform.position;
-        
+        state = "Playing";
 
     }
 
     private void Update()
     {
-
+        if (state != "Playing")
+        {
+            return;
+        }
         axisH = Input.GetAxisRaw("Horizontal");
 
 
@@ -94,6 +98,10 @@ public class APlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (state != "Playing")
+        {
+            return;
+        }
         float h = Input.GetAxisRaw("Horizontal");
         rbody.AddForce(Vector2.right * h,ForceMode2D.Impulse);
 
@@ -118,16 +126,19 @@ public class APlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Dead")
         {
             Dead();
+            
         }
     }
 
     public void GameStop()
     {
+        state = "gameover";
         rbody.linearVelocity = new Vector2(0, 0);
     }
 
     public void Dead()
     {
+        
         StartCoroutine(Respawn(2f));
        
     }
@@ -135,12 +146,15 @@ public class APlayerController : MonoBehaviour
 
     IEnumerator Respawn(float duration)
     {
+
         GameStop();
-        GetComponent<Collider2D>().enabled = false;
-        rbody.AddForce(new Vector2(0, 7), ForceMode2D.Impulse);        
+        rbody.AddForce(new Vector2(0, 7), ForceMode2D.Impulse);
+        GetComponent<Collider2D>().enabled = false; 
         yield return new WaitForSeconds(duration);
+        state = "Playing";
         GetComponent<Collider2D>().enabled = true;
         transform.position = savePoint;
+
         
     }
     public void UpdateSavePoint(Vector2 pos)

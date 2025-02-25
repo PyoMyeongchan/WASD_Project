@@ -9,6 +9,7 @@ public class Skeleton : MonoBehaviour
 {
     public int hp = 2;
     public float speed = 3.0f;
+    static public bool live = true;
     public List<string> animeList = new List<string> { "SkeletonRun", "SkeletonDead" };
     Vector3 movement;
     Rigidbody2D rb;
@@ -18,9 +19,16 @@ public class Skeleton : MonoBehaviour
 
 
 
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        if (live == false)
+        {
+            return;        
+        }
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -29,14 +37,14 @@ public class Skeleton : MonoBehaviour
 
     IEnumerator ChangeMovement()
     {
-        movementFlag = Random.Range(0, 3);
+        movementFlag = Random.Range(-1, 2);
         if (movementFlag == 0)
         {
             var animator = GetComponent<Animator>();
             animator.Play(animeList[0]);
         }
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         StartCoroutine("ChangeMovement");
     }
@@ -44,36 +52,65 @@ public class Skeleton : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (live == false)
+        {
+            return;
+        }
 
+        // 이동 처리
         Move();
 
-        Vector2 frontVec = new Vector2(rb.position.x + nextMove, rb.position.y);
-        Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("ground"));
+        // 몬스터의 현재 이동 방향에 맞춰 레이캐스트 위치 조정
+        Vector2 frontVec = new Vector2(rb.position.x, rb.position.y);
+        Vector2 rayDirection = Vector2.down;  // 수직 방향으로 레이 쏘기
+
+        // 만약 몬스터가 왼쪽을 볼 때 (nextMove < 0), 왼쪽에 레이 쏘기
+        if (nextMove < 0)
+        {
+            frontVec.x = rb.position.x - 0.5f;  // 왼쪽에 레이캐스트
+        }
+        // 몬스터가 오른쪽을 볼 때 (nextMove > 0), 오른쪽에 레이 쏘기
+        else if (nextMove > 0)
+        {
+            frontVec.x = rb.position.x + 0.5f;  // 오른쪽에 레이캐스트
+        }
+
+        Debug.DrawRay(frontVec, rayDirection * 1f, new Color(0, 1, 0));  // 레이의 방향을 설정하여 그려줌
+
+        // Raycast: 레이의 방향에 맞춰 낭떠러지를 감지 (위치에서 아래로 레이를 쏘는 것)
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, rayDirection, 1f, LayerMask.GetMask("ground"));
+
+        // 낭떠러지 감지 시
         if (rayHit.collider == null)
         {
+            // 낭떠러지가 없으면 방향 반전
+            nextMove = -nextMove;
+            movementFlag = (nextMove > 0) ? 1 : -1;  // `nextMove`에 따라 `movementFlag` 업데이트
             Debug.Log("낭떠러지 감지");
-
-            CancelInvoke();
+                      
         }
     }
 
     private void Move()
     {
         Vector3 moveVelocity = Vector3.zero;
-        if (movementFlag == 1)
+
+        // `movementFlag`에 따라 이동 방향 설정
+        if (movementFlag == -1)  // 왼쪽 이동
         {
             moveVelocity = Vector3.left;
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1, 1, 1);  // 왼쪽을 향하도록 스케일 변경
         }
-        else if (movementFlag == 2)
+        else if (movementFlag == 1)  // 오른쪽 이동
         {
             moveVelocity = Vector3.right;
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1);  // 오른쪽을 향하도록 스케일 변경
         }
-        transform.position += moveVelocity * speed * Time.deltaTime;
 
+        // 일정 속도로 계속 이동
+        transform.position += moveVelocity * speed * Time.deltaTime;
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -83,9 +120,9 @@ public class Skeleton : MonoBehaviour
 
             if (hp <= 0)
             {
-                
+                live = false;
                 GetComponent<CapsuleCollider2D>().enabled = false;
-                GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+                GetComponent<Rigidbody2D>().gravityScale = 0.0f;                
                 var animator = GetComponent<Animator>();
                 animator.Play(animeList[1]);
                 Destroy(gameObject, 1f);
