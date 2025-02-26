@@ -3,11 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Skeleton : MonoBehaviour
 {
     public int hp = 2;
+    public int maxHp = 2;
     public float speed = 3.0f;
     static public bool live = true;
     public List<string> animeList = new List<string> { "SkeletonRun", "SkeletonDead" };
@@ -25,14 +27,16 @@ public class Skeleton : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+
+
         if (live == false)
         {
-            return;        
+            return;
         }
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
-       StartCoroutine("ChangeMovement");
+        StartCoroutine("ChangeMovement");
     }
 
     IEnumerator ChangeMovement()
@@ -57,19 +61,18 @@ public class Skeleton : MonoBehaviour
             return;
         }
 
-        // 이동 처리
         Move();
 
-        // 몬스터의 현재 이동 방향에 맞춰 레이캐스트 위치 조정
-        Vector2 frontVec = new Vector2(rb.position.x, rb.position.y);
-        Vector2 rayDirection = Vector2.down;  // 수직 방향으로 레이 쏘기
 
-        // 만약 몬스터가 왼쪽을 볼 때 (nextMove < 0), 왼쪽에 레이 쏘기
+        Vector2 frontVec = new Vector2(rb.position.x, rb.position.y);
+        Vector2 rayDirection = Vector2.down;
+
+        // 왼쪽을 볼 때 (nextMove < 0), 왼쪽에 레이 쏘기
         if (nextMove < 0)
         {
             frontVec.x = rb.position.x - 0.5f;  // 왼쪽에 레이캐스트
         }
-        // 몬스터가 오른쪽을 볼 때 (nextMove > 0), 오른쪽에 레이 쏘기
+        // 오른쪽을 볼 때 (nextMove > 0), 오른쪽에 레이 쏘기
         else if (nextMove > 0)
         {
             frontVec.x = rb.position.x + 0.5f;  // 오른쪽에 레이캐스트
@@ -86,9 +89,14 @@ public class Skeleton : MonoBehaviour
             // 낭떠러지가 없으면 방향 반전
             nextMove = -nextMove;
             movementFlag = (nextMove > 0) ? 1 : -1;  // `nextMove`에 따라 `movementFlag` 업데이트
-            Debug.Log("낭떠러지 감지");
-                      
+
         }
+        else
+        {
+            nextMove = -nextMove;
+
+        }
+   
     }
 
     private void Move()
@@ -99,12 +107,12 @@ public class Skeleton : MonoBehaviour
         if (movementFlag == -1)  // 왼쪽 이동
         {
             moveVelocity = Vector3.left;
-            transform.localScale = new Vector3(-1, 1, 1);  // 왼쪽을 향하도록 스케일 변경
+            transform.localScale = new Vector3(movementFlag, 1, 1);  // 왼쪽을 향하도록 스케일 변경
         }
         else if (movementFlag == 1)  // 오른쪽 이동
         {
             moveVelocity = Vector3.right;
-            transform.localScale = new Vector3(1, 1, 1);  // 오른쪽을 향하도록 스케일 변경
+            transform.localScale = new Vector3(movementFlag, 1, 1);  // 오른쪽을 향하도록 스케일 변경
         }
 
         // 일정 속도로 계속 이동
@@ -120,21 +128,22 @@ public class Skeleton : MonoBehaviour
 
             if (hp <= 0)
             {
-                live = false;
-                GetComponent<CapsuleCollider2D>().enabled = false;
-                GetComponent<Rigidbody2D>().gravityScale = 0.0f;                
+
+                speed = 0;
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<Rigidbody2D>().gravityScale = 0.0f;
                 var animator = GetComponent<Animator>();
                 animator.Play(animeList[1]);
                 Destroy(gameObject, 1f);
 
-
             }
+
         }
 
 
 
     }
 
- 
+
 
 }

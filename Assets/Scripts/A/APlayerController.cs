@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class APlayerController : MonoBehaviour
 {
@@ -16,6 +18,12 @@ public class APlayerController : MonoBehaviour
     float axisH = 0.0f;
     Vector2 savePoint;
     public static string state = "Playing";
+    public int playerHp = 3;
+    public int maxHp = 3;
+    bool isUndamage;
+
+
+
 
 
     string current = "";
@@ -33,6 +41,8 @@ public class APlayerController : MonoBehaviour
         jumpcount = 1;
         savePoint = transform.position;
         state = "Playing";
+
+        
 
     }
 
@@ -60,24 +70,24 @@ public class APlayerController : MonoBehaviour
         if (rbody.linearVelocity.normalized.x == 0)
         {
             current = Enum.GetName(typeof(AnimeState), 0);
-            
+
         }
         else
         {
             current = Enum.GetName(typeof(AnimeState), 1);
-            
-           
+
+
         }
 
 
         if (current != previous)
-        { 
+        {
             previous = current;
             animator.Play(current);
         }
 
-        if(isGround)
-        { 
+        if (isGround)
+        {
             jumpcount = 1;
             if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
@@ -86,8 +96,17 @@ public class APlayerController : MonoBehaviour
                 jumpcount = 0;
 
             }
-            
 
+
+        }
+
+        if (playerHp == 0)
+        {
+            if (state != "Playing")
+            {
+                Dead();
+            
+            }
         }
 
 
@@ -102,23 +121,25 @@ public class APlayerController : MonoBehaviour
         {
             return;
         }
+
+
         float h = Input.GetAxisRaw("Horizontal");
-        rbody.AddForce(Vector2.right * h,ForceMode2D.Impulse);
+        rbody.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
         if (rbody.linearVelocityX > maxSpeed)
         {
             rbody.linearVelocity = new Vector2(maxSpeed, rbody.linearVelocityY);
         }
         else if (rbody.linearVelocityX < maxSpeed * (-1))
-        { 
-            rbody.linearVelocity = new Vector2(maxSpeed*(-1), rbody.linearVelocityY);
-        } 
+        {
+            rbody.linearVelocity = new Vector2(maxSpeed * (-1), rbody.linearVelocityY);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
-        { 
+        {
             isGround = true;
             jumpcount = 1;
         }
@@ -126,9 +147,44 @@ public class APlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Dead")
         {
             Dead();
-            
+
         }
+        if (collision.gameObject.tag == "Monster")
+        {
+            GetDamage(collision.transform.position);
+        
+        }
+
+
     }
+
+    private void GetDamage(Vector2 monster)
+    {
+        playerHp--;
+        gameObject.layer = 9;
+        rbody.linearVelocity = new Vector2(0, 0);
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+        int dir = transform.position.x - monster.x > 0 ? 1 : -1;
+        rbody.AddForce(new Vector2(dir, 1) * 2f, ForceMode2D.Impulse);
+
+        Invoke("OffDamaged", 1.5f);
+
+        if (playerHp == 0)
+        {
+            Dead();
+            spriteRenderer.color = new Color(1, 1, 1, 1);
+        }
+
+    }
+
+    void OffDamaged()
+    {
+        gameObject.layer = 6;
+        spriteRenderer.color = new Color(1, 1, 1, 1);
+    
+    }
+
+
 
     public void GameStop()
     {
@@ -140,7 +196,7 @@ public class APlayerController : MonoBehaviour
     {
         
         StartCoroutine(Respawn(2f));
-       
+
     }
 
 
@@ -149,17 +205,21 @@ public class APlayerController : MonoBehaviour
 
         GameStop();
         rbody.AddForce(new Vector2(0, 7), ForceMode2D.Impulse);
-        GetComponent<Collider2D>().enabled = false; 
+        GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(duration);
         state = "Playing";
         GetComponent<Collider2D>().enabled = true;
+        playerHp = 3;
         transform.position = savePoint;
+   
 
-        
+
     }
     public void UpdateSavePoint(Vector2 pos)
     {
-        
-        savePoint = pos;  
+
+        savePoint = pos;
     }
+
+
 }
