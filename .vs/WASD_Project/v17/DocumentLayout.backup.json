@@ -1,0 +1,101 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|c:\\users\\user\\documents\\github\\wasd_project\\assets\\scripts\\skeleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\skeleton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\assets\\scripts\\a\\aplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\a\\aplayercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\assets\\scripts\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\assets\\scripts\\savepoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B85BF53-1533-3BA5-3108-8FB46540D728}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\savepoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\assets\\scripts\\monsterspawn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:assets\\scripts\\monsterspawn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MonsterSpawn.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\MonsterSpawn.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MonsterSpawn.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\MonsterSpawn.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MonsterSpawn.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T13:03:59.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "APlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\A\\APlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\A\\APlayerController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\A\\APlayerController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\A\\APlayerController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T14:27:06.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Table.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\Table.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Table.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\Table.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Table.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T14:45:30.464Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Skeleton.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\Skeleton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Skeleton.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\Skeleton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Skeleton.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T13:05:03.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SavePoint.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\SavePoint.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SavePoint.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\WASD_Project\\Assets\\Scripts\\SavePoint.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SavePoint.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwBUAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T14:18:03.965Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
